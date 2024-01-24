@@ -1,0 +1,75 @@
+﻿<head>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/themes/6.7.0/default/default-ocean-blue.css" />
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2023.2.829/js/kendo.all.min.js"></script>
+
+
+
+    @*  <link href="https://kendo.cdn.telerik.com/themes/7.0.2/default/default-main.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://kendo.cdn.telerik.com/2023.3.1114/js/kendo.all.min.js"></script>
+    *@
+</head>
+
+<body>
+    <h1>List Of Products</h1>
+    <div id="list"></div>
+
+    <a id="add-new-button" role="button" class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md" href="#"><span class="k-button-icon k-icon add"></span>Add new record</a>
+
+
+    <script type="text/x-kendo-tmpl" id="template">
+        <div class="product-view k-widget">
+            <dl>
+                <dt>Product ID</dt>
+                <dd>#:id#</dd>
+                <dt>Product Name</dt>
+                <dd>#:name#</dd>
+                <dt>product Brand</dt>
+                <dd>#:brand#</dd>
+                <dt>productQuantity</dt>
+                <dd>#:quantity#</dd>
+                <dt>productImage</dt>
+                <dd><img src="data:image/jpeg;base64,#:image#" alt="productDetails Image" style="max-width: 100px; max-height: 100px;" /></dd>
+            </dl>
+        </div>
+
+         <div class="edit-buttons">
+                <a role="button" class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md k-edit-button" href="\\#"> #= kendo.ui.icon({ icon: 'pencil' }) # </a>
+                <a role="button" class="k-button k-button-solid-base k-button-solid k-button-md k-rounded-md k-delete-button" href="\\#">#= kendo.ui.icon({ icon: 'x' }) #</a>
+            </div>
+
+    </script>
+    <script>
+
+    
+
+
+
+
+      
+            var listView = $("#list").kendoListView({
+            dataSource: {
+                transport: {
+                    read: {
+                        url: "/Home/GetData1",
+                        dataType: "json",
+                       
+                    }
+                }
+            }, 
+            template: kendo.template($("#template").html()),
+            pageable: true
+        }).data("kendoListView");
+
+        $("#add-new-button").click(function (e) {
+            listView.add();
+            e.preventDefault();
+        });
+
+
+    </script>
+
+</body>
